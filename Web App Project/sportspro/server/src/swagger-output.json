@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SportsPro API",
+    "version": "1.0.0",
+    "description": "A simple API to perform CRUD functions for sports management software"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api/",
+      "description": "Version 1"
+    }
+  ],
+  "paths": {},
+  "components": {},
+  "tags": []
+}

@@ -1,0 +1,82 @@
+-- Database Schema Reference for SportsPro Technical Support
+-- This is provided as a reference to create your implementation
+
+-- Structure overview:
+
+-- Countries table
+-- Columns:
+--   countryCode CHAR(2) PRIMARY KEY
+--   countryName VARCHAR(50) NOT NULL
+
+-- Products table
+-- Columns:
+--   productCode VARCHAR(10) PRIMARY KEY
+--   name VARCHAR(50) NOT NULL
+--   version DECIMAL(18, 1) NOT NULL
+--   releaseDate DATE NOT NULL
+
+-- Technicians table
+-- Columns:
+--   techID SERIAL PRIMARY KEY
+--   firstName VARCHAR(50) NOT NULL
+--   lastName VARCHAR(50) NOT NULL
+--   email VARCHAR(100) NOT NULL UNIQUE
+--   phone VARCHAR(20) NOT NULL
+--   password VARCHAR(100) NOT NULL
+
+-- Customers table
+-- Columns:
+--   customerID SERIAL PRIMARY KEY
+--   firstName VARCHAR(50) NOT NULL
+--   lastName VARCHAR(50) NOT NULL
+--   address VARCHAR(50) NOT NULL
+--   city VARCHAR(50) NOT NULL
+--   state VARCHAR(50) NOT NULL
+--   postalCode VARCHAR(20) NOT NULL
+--   countryCode CHAR(2) NOT NULL REFERENCES countries(countryCode)
+--   phone VARCHAR(20) NOT NULL
+--   email VARCHAR(100) NOT NULL UNIQUE
+--   password VARCHAR(100) NOT NULL
+
+-- Incidents table
+-- Columns:
+--   incidentID SERIAL PRIMARY KEY
+--   customerID INTEGER NOT NULL REFERENCES customers(customerID)
+--   productCode VARCHAR(10) NOT NULL REFERENCES products(productCode)
+--   techID INTEGER REFERENCES technicians(techID)
+--   dateOpened TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+--   dateClosed TIMESTAMP
+--   title VARCHAR(50) NOT NULL
+--   description TEXT NOT NULL
+
+-- Registrations table
+-- Columns:
+--   customerID INTEGER NOT NULL REFERENCES customers(customerID)
+--   productCode VARCHAR(10) NOT NULL REFERENCES products(productCode)
+--   registrationDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+--   PRIMARY KEY (customerID, productCode)
+
+-- Administrators table
+-- Columns:
+--   username VARCHAR(40) PRIMARY KEY
+--   password VARCHAR(100) NOT NULL
+
+-- Relationships:
+-- 1. Many-to-One: Customers to Countries
+-- 2. Many-to-One: Incidents to Customers
+-- 3. Many-to-One: Incidents to Products
+-- 4. Many-to-One: Incidents to Technicians
+-- 5. Many-to-Many: Customers to Products (through Registrations)
+
+-- Example data:
+-- Countries: US, CA, MX, UK, etc.
+-- Products: DRAFT10 (Draft Manager 1.0), LEAG10 (League Scheduler 1.0), etc.
+-- Technicians: Support staff with names, contact info
+-- Customers: Users of the sports software products
+-- Incidents: Support tickets logged by customers
+-- Registrations: Which customers have registered which products
+-- Administrators: Admin users for the support system
+
+
+
+

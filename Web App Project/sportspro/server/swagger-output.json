@@ -1,0 +1,1127 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SportsPro API",
+    "version": "1.0.0",
+    "description": "A simple API to perform CRUD functions for sports management software"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/api/",
+      "description": "Version 1"
+    }
+  ],
+  "paths": {
+    "/administrators": {
+      "get": {
+        "summary": "Get all administrators",
+        "tags": [
+          "Administrators"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of administrators"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new administrator",
+        "tags": [
+          "Administrators"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "username",
+                  "password"
+                ],
+                "properties": {
+                  "username": {
+                    "type": "string",
+                    "example": "admin123"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "secretpass"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Administrator created"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/administrators/{username}": {
+      "get": {
+        "summary": "Get administrator by username",
+        "tags": [
+          "Administrators"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Administrator's username"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Administrator found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "404": {
+            "description": "Administrator not found"
+          }
+        }
+      }
+    },
+    "/countries": {
+      "get": {
+        "summary": "Get all countries",
+        "tags": [
+          "Countries"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of countries"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new country",
+        "tags": [
+          "Countries"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "countryName",
+                  "countryCode"
+                ],
+                "properties": {
+                  "countryName": {
+                    "type": "string",
+                    "example": "Australia"
+                  },
+                  "countryCode": {
+                    "type": "string",
+                    "example": "AU"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Country created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/countries/{countrycode}": {
+      "get": {
+        "summary": "Get a country by its code",
+        "tags": [
+          "Countries"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "countrycode",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The country code (e.g., \"AU\")"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Country found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          },
+          "404": {
+            "description": "Country not found"
+          }
+        }
+      }
+    },
+    "/customers/login": {
+      "post": {
+        "summary": "Log in as a customer",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "format": "password",
+                    "example": "userpass123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully logged in"
+          },
+          "401": {
+            "description": "Invalid credentials or unauthorized"
+          }
+        }
+      }
+    },
+    "/customers": {
+      "get": {
+        "summary": "Get all customers",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of customers"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new customer",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "firstname",
+                  "lastname",
+                  "address",
+                  "city",
+                  "state",
+                  "postalcode",
+                  "countrycode",
+                  "phone",
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "firstname": {
+                    "type": "string",
+                    "example": "Jane"
+                  },
+                  "lastname": {
+                    "type": "string",
+                    "example": "Doe"
+                  },
+                  "address": {
+                    "type": "string",
+                    "example": "123 Main Street"
+                  },
+                  "city": {
+                    "type": "string",
+                    "example": "Brisbane"
+                  },
+                  "state": {
+                    "type": "string",
+                    "example": "QLD"
+                  },
+                  "postalcode": {
+                    "type": "string",
+                    "example": 4000
+                  },
+                  "countrycode": {
+                    "type": "string",
+                    "example": "AU"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "0412345678"
+                  },
+                  "email": {
+                    "type": "string",
+                    "example": "jane.doe@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "securepassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Customer created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Access denied"
+          }
+        }
+      }
+    },
+    "/customers/{customerid}": {
+      "get": {
+        "summary": "Get a customer by ID",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the customer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Customer found"
+          },
+          "404": {
+            "description": "Customer not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a customer's information",
+        "tags": [
+          "Customers"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "customerid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the customer"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "firstname": {
+                    "type": "string"
+                  },
+                  "lastname": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "city": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  },
+                  "postalcode": {
+                    "type": "string"
+                  },
+                  "countrycode": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Customer updated"
+          },
+          "400": {
+            "description": "Validation or input error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Customer not found"
+          }
+        }
+      }
+    },
+    "/incidents/assigned": {
+      "get": {
+        "summary": "Get incidents assigned to the current user",
+        "tags": [
+          "Incidents"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of assigned incidents"
+          },
+          "403": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/incidents/unassigned": {
+      "get": {
+        "summary": "Get all unassigned incidents",
+        "tags": [
+          "Incidents"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of unassigned incidents"
+          },
+          "403": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/incidents": {
+      "get": {
+        "summary": "Get all incidents",
+        "tags": [
+          "Incidents"
+        ],
+        "responses": {
+          "200": {
+            "description": "List of all incidents"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new incident",
+        "tags": [
+          "Incidents"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customerid",
+                  "techid",
+                  "productcode",
+                  "dateopened",
+                  "title",
+                  "description"
+                ],
+                "properties": {
+                  "customerid": {
+                    "type": "integer"
+                  },
+                  "techid": {
+                    "type": "integer"
+                  },
+                  "productcode": {
+                    "type": "string"
+                  },
+                  "dateopened": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Incident created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/incidents/{incidentid}": {
+      "get": {
+        "summary": "Get an incident by ID",
+        "tags": [
+          "Incidents"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incidentid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the incident"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Incident data"
+          },
+          "404": {
+            "description": "Incident not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an existing incident",
+        "tags": [
+          "Incidents"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "incidentid",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "ID of the incident"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customerid",
+                  "techid",
+                  "productcode",
+                  "dateopened",
+                  "title",
+                  "description"
+                ],
+                "properties": {
+                  "customerid": {
+                    "type": "integer"
+                  },
+                  "techid": {
+                    "type": "integer"
+                  },
+                  "productcode": {
+                    "type": "string"
+                  },
+                  "dateopened": {
+                    "type": "string",
+                    "format": "date"
+                  },
+                  "title": {
+                    "type": "string"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Incident updated"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Incident not found"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Log in a user",
+        "tags": [
+          "Authentication"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "user@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "securepassword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "summary": "Get all products",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of products retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new product",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "productcode",
+                  "name",
+                  "version",
+                  "releasedate"
+                ],
+                "properties": {
+                  "productcode": {
+                    "type": "string",
+                    "example": "ABC123"
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "WidgetX"
+                  },
+                  "version": {
+                    "type": "string",
+                    "example": "1.0.0"
+                  },
+                  "releasedate": {
+                    "type": "string",
+                    "example": "2024-01-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Product created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/products/{productcode}": {
+      "get": {
+        "summary": "Get a product by code",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "productcode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a product by code",
+        "tags": [
+          "Products"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "productcode",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product code"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product deleted"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/registrations": {
+      "get": {
+        "summary": "Get all registrations",
+        "tags": [
+          "Registrations"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of registrations retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new registration",
+        "tags": [
+          "Registrations"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "customerid",
+                  "productcode",
+                  "registrationdate"
+                ],
+                "properties": {
+                  "customerid": {
+                    "type": "integer",
+                    "example": 123
+                  },
+                  "productcode": {
+                    "type": "string",
+                    "example": "ABC123"
+                  },
+                  "registrationdate": {
+                    "type": "string",
+                    "format": "date",
+                    "example": "2024-07-01"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration created"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/technicians": {
+      "get": {
+        "summary": "Get all technicians",
+        "tags": [
+          "Technicians"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of technicians retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new technician",
+        "tags": [
+          "Technicians"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "techid",
+                  "firstname",
+                  "lastname",
+                  "email",
+                  "phone",
+                  "password"
+                ],
+                "properties": {
+                  "techid": {
+                    "type": "integer",
+                    "example": 101
+                  },
+                  "firstname": {
+                    "type": "string",
+                    "example": "John"
+                  },
+                  "lastname": {
+                    "type": "string",
+                    "example": "Doe"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "john.doe@example.com"
+                  },
+                  "phone": {
+                    "type": "string",
+                    "example": "+1234567890"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "secretpass123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Technician created successfully"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/technicians/{techid}": {
+      "get": {
+        "summary": "Get a technician by ID",
+        "tags": [
+          "Technicians"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "techid",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Technician ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Technician data retrieved successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Technician not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a technician by ID",
+        "tags": [
+          "Technicians"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "techid",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true,
+            "description": "Technician ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Technician deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "404": {
+            "description": "Technician not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {},
+  "tags": []
+}
